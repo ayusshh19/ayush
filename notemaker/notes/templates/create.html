@@ -1,0 +1,24 @@
+<form class="row g-3 needs-validation visually-hidden createform" action='create' method='post' novalidate id='createform'>
+    {% csrf_token %}
+      <div class="col-md-6">
+        <label for="validationCustom01" class="form-label">Name:</label>
+        <input type="text" class="form-control" id="validationCustom01" name='username'  required>
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="validationCustom02" class="form-label">Task</label>
+        <input type="text" class="form-control" id="validationCustom02" name='task'  required>
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+      </div>
+      <div class="mb-3">
+          <label for="exampleFormControlTextarea1" class="form-label">About task</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" name='about' rows="3"></textarea>
+        </div>
+      <div class="col-12">
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </div>
+    </form>

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}HOME{% endblock title %}
+{% block content %}
+{% include 'nav.html' %}
+{% if messages %}
+{% for message in messages  %}
+{% if message.tags %}
+<div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+  <strong>{{message.tags}}</strong> 
+  {{message}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+<h1 class='bg-primary p-3 m-auto text-center w-50 my-4'>Notemaker </h1>
+<div class='container'>
+<div class='row'>
+    <div class='col-6 m-auto text-center p-3 bg-info bg-opacity-10 border border-info border-start rounded'>
+        <button type="button" id='create' class="btn btn-info text-center p-2" onclick='remove()'>CREATE</button>
+        {% include 'create.html' %}
+    </div>
+{% comment %} <-----------------------------------------------------------------------------------------------> {% endcomment %}
+
+    <div class='col-6 m-auto text-center p-3 bg-warning bg-opacity-10 border border-warning border-start rounded'>
+        <form class="row g-3 needs-validation" action='updateid' method='post' novalidate>
+          {% csrf_token %}
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" name='userid' placeholder="User Id" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <button class="btn btn-outline-warning" type="submit" id="button-addon2" >Update</button>
+              </div>
+          </form>
+          {% if notes %}
+          {% include 'update.html' %}
+          {% endif %}
+          
+    </div>
+</div>
+</div>
+<div class='text-center my-3'>
+  <button type="button" class="btn btn-outline-dark" onclick='showtable()'>Show Task</button>
+  <div class='container visually-hidden' id='table'>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">username</th>
+          <th scope="col">Task</th>
+          <th scope="col">Abouttask</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider">
+        {% for nm in note %}
+        <tr>
+          <th scope="row">{{nm.id}}</th>
+          <td>{{nm.username}}</td>
+          <td>{{nm.task}}</td>
+          <td>{{nm.abouttask}}</td>
+          <td>
+            <form class="row g-3 needs-validation" action={% url 'delete' nm.id %} method='post' novalidate>
+              {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<script>
+    function remove(){
+        const div =  document.getElementById('createform') // Get element from DOM
+div.classList.remove('visually-hidden')
+    }
+    function updateform(){
+      const Update =  document.getElementById('updateform') // Get element from DOM
+update.classList.remove('visually-hidden')
+    }
+    function showtable(){
+      const Update =  document.getElementById('table') // Get element from DOM
+Update.classList.remove('visually-hidden')
+    }
+    
+</script>
+{% endblock content %}

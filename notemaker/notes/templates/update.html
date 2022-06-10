@@ -1,0 +1,24 @@
+<form class="row g-3 needs-validation updateform" action={% url 'update' notes.id %} method='post' novalidate id='updateform'>
+    {% csrf_token %}
+    <div class="col-md-6">
+      <label for="validationCustom01" class="form-label">Name:</label>
+      <input type="text" class="form-control" id="validationCustom01" name='username' value={{notes.username}}  required>
+      <div class="valid-feedback">
+        Looks good!
+      </div>
+    </div>
+    <div class="col-md-6">
+      <label for="validationCustom02" class="form-label">Task</label>
+      <input type="text" class="form-control" id="validationCustom02" name='task' value={{notes.task}} required>
+      <div class="valid-feedback">
+        Looks good!
+      </div>
+    </div>
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">About task</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" name='abouttask' rows="3">{{notes.abouttask}}</textarea>
+      </div>
+    <div class="col-12">
+      <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+  </form>
